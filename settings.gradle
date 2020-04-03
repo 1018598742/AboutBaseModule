@@ -1,0 +1,2 @@
+rootProject.name='AboutBaseModule'
+include ':app', ':basemodule'
