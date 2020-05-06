@@ -1,12 +1,13 @@
 package com.fta.base
 
-import android.content.ContentResolver
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.Settings
 import android.view.Gravity
 import android.view.View
 import android.widget.Button
+import com.fta.base.finger.FingerAc
+import com.fta.base.finger.FingerBioAc
 import com.fta.base.sdcard.SdCardAc
 import com.qmuiteam.qmui.kotlin.onClick
 import kotlinx.android.synthetic.main.activity_main.*
@@ -52,6 +53,19 @@ class MainActivity : AppCompatActivity() {
                             it.context.contentResolver,
                             Settings.Secure.ANDROID_ID
                         )
+                    }
+
+                    button{
+                        text= "指纹"
+                    }.onClick {
+                        jumpAc<FingerAc>()
+                    }
+
+
+                    button{
+                        text= "指纹(sdk>=28)"
+                    }.onClick {
+                        jumpAc<FingerBioAc>()
                     }
                 }
 
