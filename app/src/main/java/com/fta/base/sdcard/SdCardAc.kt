@@ -5,24 +5,57 @@ import android.os.Build
 import android.os.Bundle
 import android.os.storage.StorageManager
 import android.os.storage.StorageVolume
+import android.view.Gravity
+import android.view.View
 import android.widget.Button
 import android.widget.TextView
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import com.common.basemodule.util.LogUtil
 import com.fta.base.R
+import com.qmuiteam.qmui.kotlin.onClick
 import kotlinx.android.synthetic.main.activity_baseroot.*
+import org.jetbrains.anko.*
+import org.jetbrains.anko.support.v4.nestedScrollView
 import java.lang.StringBuilder
 
 class SdCardAc : AppCompatActivity() {
 
     private var showSdcardInfo: TextView? = null
 
+    class SdCardAcUi : AnkoComponent<SdCardAc> {
+        override fun createView(ui: AnkoContext<SdCardAc>): View = ui.apply {
+            nestedScrollView {
+                verticalLayout {
+                    val textView = textView {
+                        gravity = Gravity.CENTER
+                        text = "123"
+                    }
+
+                    button {
+                        text = "获取SD卡信息"
+                    }.onClick {
+                        toast("点击获取Sd卡信息")
+                        textView.text = "456"
+                    }
+
+
+                }
+            }
+
+        }.view
+
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_baseroot)
         initView()
+//        setContentView(ankoInitView())
     }
+
+    private fun ankoInitView(): View =
+        SdCardAcUi().createView(AnkoContext.create(this, this))
 
     private fun initView() {
         val sdCardInfoBt = Button(this)
@@ -33,7 +66,7 @@ class SdCardAc : AppCompatActivity() {
         rootBase.addView(sdCardInfoBt, -1, -1)
 
         showSdcardInfo = TextView(this)
-        rootBase.addView(showSdcardInfo,-1,-1)
+        rootBase.addView(showSdcardInfo, -1, -1)
     }
 
     private fun updateSdInfo() {
@@ -82,7 +115,7 @@ class SdCardAc : AppCompatActivity() {
     }
 
     @RequiresApi(Build.VERSION_CODES.N)
-    private fun updateSdcardInfo(storageVolumes : List<StorageVolume> ){
+    private fun updateSdcardInfo(storageVolumes: List<StorageVolume>) {
         showSdcardInfo?.let {
             val sb = StringBuilder()
             sb.append("SDCARD信息：\n")
