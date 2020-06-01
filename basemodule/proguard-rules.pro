@@ -198,3 +198,13 @@
 -keep class com.google.gson.**{*;}
 -keep interface com.google.gson.**{*;}
 #        。。。。。。
+
+
+# keep annotated by NotProguard 混淆配置文件中声明
+-keep @com.common.basemodule.anno.NotProguard class * {*;}
+-keep class * {
+@com.common.basemodule.anno.NotProguard <fields>;
+}
+-keepclassmembers class * {
+@com.common.basemodule.anno.NotProguard <methods>;
+}
